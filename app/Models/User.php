@@ -13,7 +13,7 @@ class User extends Authenticatable
      * 指定表名
      * @var string
      */
-    protected $table='user';
+    protected $table='users';
     /**
      * The attributes that are mass assignable.
      * 只有以下属性才能被更新;
