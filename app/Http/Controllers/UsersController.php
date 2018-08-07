@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -17,9 +18,10 @@ class UsersController extends Controller
     }
 
     public function store(Request $request){
-        $result=$this->validate($request,['name'=>'required|max:5','email'=>'required|email|unique:users|max:255','password'=>'required|confirmed|min:6']);
+        $result=$this->validate($request,['name'=>'required','email'=>'required|email|unique:users|max:255','password'=>'required|confirmed|min:6']);
         //$request->all(); 获取所有请求字段
         $user=User::create(['name'=>$request->name,'email'=>$request->email,'password'=>bcrypt($request->password)]);
+        Auth::login($user);
         //添加注册成功的会话提醒:
         session()->flash('success','欢迎,您将开启一段新的旅程~');
         return redirect()->route('users.show',$user);
