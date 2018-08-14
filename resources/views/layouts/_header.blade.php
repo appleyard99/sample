@@ -6,14 +6,14 @@
                 <ul class="nav navbar-nav navbar-right">
                     {{--Auth::check() 检测用户是否登录:已登录返回true,否则返回false;原理Auth登录成功后会设置session等--}}
                     @if (Auth::check())
-                        <li><a href="#">用户列表</a></li>
+                        <li><a href="{{ route('users.index') }}">用户列表</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 {{ Auth::user()->name }} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('users.show', Auth::user()->id) }}">个人中心</a></li>
-                                <li><a href="#">编辑资料</a></li>
+                                <li><a href="{{ route('users.edit',Auth::user()->id) }}">编辑资料</a></li>
                                 <li class="divider"></li>
                                 <li>
                                     <a id="logout" href="#">
