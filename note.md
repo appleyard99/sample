@@ -1,3 +1,6 @@
+###### Laravel 5.1 速查表
+https://cs.laravel-china.org/
+
 ######Laravel tink 快速生成数据
 php artisan tinker 进入tinker 命令行;
 命令使用如下:
@@ -33,4 +36,11 @@ return view('users.index', compact('users'));
 {!! $users->render() !!} #固定格式
 由 render 方法生成的 HTML 代码默认会使用 Bootstrap 框架的样式，渲染出来的视图链接也都统一会带上 ?page 参数来设置指定页数的链接。另外还需要注意的一点是，
 渲染分页视图的代码必须使用 {!! !!} 语法，而不是 {{　}}，这样生成 HTML 链接才不会被转义。
+######PHP artisan vendor:publish --tag=Laravel-notifications 这段命令是什么意思?
+项目通常有很多扩展，而每个扩展可能用到一些配置文件 View 之类的资源
+我们 composer require 安装完成一个扩展，这个扩展是存在vendor 目录的，这个目录是.gitignore，所以需要把资源Copy或者说发布到正确的地方。
+所以，需要用到这个命令。
+但是使用这个命令之前 ，通常要把provider进行配置关联，如 config/app.php
+
+
 
