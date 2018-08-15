@@ -35,12 +35,20 @@ class SessionsController extends Controller
         $credentials = $this->validate($request,['email'=>'required|email|max:244','password'=>'required']);
         //验证成功时$credentials返回包含所有入参的关联数组,验证失败返回false;
         if(Auth::attempt($credentials,$request->has('remember'))){//该方法验证第一个参数验证用户是否存在,密码是否正确;成功登录设置用户会话信息,第二个参数是是否设置记住我布尔类型;需要引入 Auth;
-            session()->flash('success','欢迎回来~');
-            return redirect()->intended(route('users.show',[Auth::user()]));//提升友好性通过route()->intended()方法重定向到上次访问的路由,intended()接收参数为当上次路由为空时默认要跳转的路由;
-            //return redirect()->route('users.show',[Auth::user()]);//重定向页面并将数据传送给路由 Auth::user()方法来获取当前登录用户的信息。
+            if(Auth::user()->activated) {//验证通过且账户已激活才能正常登陆
+                session()->flash('success', '欢迎回来~');
+
+                return redirect()->intended(
+                    route('users.show', [Auth::user()])
+                );//提升友好性通过route()->intended()方法重定向到上次访问的路由,intended()接收参数为当上次路由为空时默认要跳转的路由;
+                //return redirect()->route('users.show',[Auth::user()]);//重定向页面并将数据传送给路由 Auth::user()方法来获取当前登录用户的信息。
+            }else{//账户还未激活,提醒激活
+                Auth::logout();
+                session()->flash('warning','该账户还未激活,请检测邮箱中的激活邮件进行激活.');
+                return redirect('/');
+            }
         }else{
             session()->flash('danger','您的邮箱和密码不匹配~');
-
             return redirect()->back();//验证失败重定向到(上个路由)登录页面;
         }
 
