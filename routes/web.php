@@ -36,3 +36,10 @@ Route::post('login','SessionsController@store')->name('login');//创建会话登
 Route::delete('logout','SessionsController@destroy')->name('logout');//退出登录(销毁会话)
 
 Route::get('signup/confirm/{token}','UsersController@confirmEmail')->name('confirm_email');
+
+//Laravel 的通知系统默认支持邮件频道的通知方式，我们只需要稍作配置即可。ForgotPasswordController,ResetPasswordController laravel自带的密码重置功路由中配置一下,vendor里notifications文件用pushlishcopy的可用目录下该功能就可以使用了;
+Route::get('password/reset','Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');

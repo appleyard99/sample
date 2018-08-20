@@ -36,11 +36,34 @@ return view('users.index', compact('users'));
 {!! $users->render() !!} #固定格式
 由 render 方法生成的 HTML 代码默认会使用 Bootstrap 框架的样式，渲染出来的视图链接也都统一会带上 ?page 参数来设置指定页数的链接。另外还需要注意的一点是，
 渲染分页视图的代码必须使用 {!! !!} 语法，而不是 {{　}}，这样生成 HTML 链接才不会被转义。
-######PHP artisan vendor:publish --tag=Laravel-notifications 这段命令是什么意思?
+#####PHP artisan vendor:publish --tag=Laravel-notifications 这段命令是什么意思?
 项目通常有很多扩展，而每个扩展可能用到一些配置文件 View 之类的资源
 我们 composer require 安装完成一个扩展，这个扩展是存在vendor 目录的，这个目录是.gitignore，所以需要把资源Copy或者说发布到正确的地方。
 所以，需要用到这个命令。
 但是使用这个命令之前 ，通常要把provider进行配置关联，如 config/app.php
+#####一般来说，密码重设的步骤如下：
+用户点击重设密码链接并跳转到重设密码页面；
+在重设密码页面输入邮箱信息并提交；
+控制器通过该邮箱查找到指定用户并为该用户生成一个密码令牌，接着将该令牌以链接的形式发送到用户提交的邮箱上；
+用户查看自己个人邮箱，点击重置密码链接跳转到重置密码页面；
+用户在该页面输入自己的邮箱和密码并提交；
+控制器对用户的邮箱和密码重置令牌进行匹配，匹配成功则更新用户密码；
+##### PHP artisan vendor:publish --tag=Laravel-notifications 这段命令作用:
+项目通常有很多扩展，而每个扩展可能用到一些配置文件 View 之类的资源
+我们 composer require 安装完成一个扩展，这个扩展是存在vendor 目录的，这个目录是.gitignore，所以需要把资源Copy或者说发布到正确的地方。
+所以，需要用到这个命令。
+但是使用这个命令之前 ，通常要把provider进行配置关联，如 config/app.php
+
+该命令运行的结果为:
+Copied Directory [/vendor/laravel/framework/src/Illuminate/Notifications/resourc
+es/views] To [/resources/views/vendor/notifications]
+(将vender下相关文件复制到项目resources对应的位置;详细的位置配置在*ServiceProvider中设置;在这之前通常在config/app.php关联provider)
+关联provider: Illuminate\Notifications\NotificationServiceProvider::class;
+NotificationServiceProvider中的设置:
+  $this->publishes([
+                __DIR__.'/resources/views' => $this->app->resourcePath('views/vendor/notifications'),
+            ], 'laravel-notifications');
+该配置会使在运行publish命令时将相应的文件copy到可用的项目目录中;
 
 
 
