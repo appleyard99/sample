@@ -48,6 +48,16 @@ class User extends Authenticatable
 
     }
 
+    /**
+     * @detail 指定用户与微博的一对多的关系
+     * @param int $size
+     * @author mgg
+     * @return string
+     */
+     public function statuses(){
+         return $this->hasMany(Status::class);
+     }
+
 
     //获取用户头像;
     public function gravatar($size=100){
@@ -59,5 +69,14 @@ class User extends Authenticatable
     {
 
         $this->notify(new ResetPassword($token));
+    }
+
+    /**
+     * @detail 获取用户发布的微博列表
+     * @author mgg
+     */
+    public function feed(){
+
+        return $this->statuses()->orderBy('created_at','desc');
     }
 }

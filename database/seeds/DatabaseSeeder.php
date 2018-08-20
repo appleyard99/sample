@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         //运行UserTableSeeder
         $this->call(UsersTableSeeder::class);
+        $this->call(StatusesTableSeeder::class);//指定微博数据填充文件
 
         Model::reguard();
     }
