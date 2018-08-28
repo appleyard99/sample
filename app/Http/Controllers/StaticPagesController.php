@@ -13,6 +13,7 @@ class StaticPagesController extends Controller
         $feed_items=[];
         if(Auth::check()){
             $feed_items=Auth::user()->feed()->paginate(100);
+
            /* $laQuery = DB::getQueryLog();
             var_dump($laQuery);
             DB::disableQueryLog();*/
