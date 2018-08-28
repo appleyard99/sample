@@ -5,10 +5,6 @@
 if(!function_exists('saveSqlLog')){
 
     function saveSqlLog(){
-        $message='';
-        $db='';
-        $spend='';
-        $date = date("Y-m-d H:i:s",time());
         DB::enableQueryLog();
         if (class_exists(QueryExecuted::class, true)){
             DB::listen(function ($queryExecuted) {
@@ -40,7 +36,8 @@ if(!function_exists('saveSqlLog')){
                     touch($desLogFile);
                     chmod($desLogFile,0777);
                 }
-                $messages= "新sql : ".$db.':['.$message."] ".PHP_EOL;
+                $date = date("Y-m-d H:i:s",time());
+                $messages= "[ ".$date." ]: ".$db.':{'.$message."} ".PHP_EOL;
                 file_put_contents($desLogFile,$messages,FILE_APPEND);
             });
         }else{
@@ -71,9 +68,10 @@ if(!function_exists('saveSqlLog')){
                 $desLogFile = storage_path().'/logs/sql.log';
                 if(!is_file($desLogFile)){
                     touch($desLogFile);
-                    chmod($desLogFile,'777');
+                    chmod($desLogFile,0777);
                 }
-                $messages= "SQL : ".$db.':{'.$message."} ".PHP_EOL;
+                $date = date("Y-m-d H:i:s",time());
+                $messages= "[ ".$date." ]: ".$db.':{'.$message."} ".PHP_EOL;
                 file_put_contents($desLogFile,$messages,FILE_APPEND);
 
             });
