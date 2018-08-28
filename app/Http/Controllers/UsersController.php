@@ -153,6 +153,29 @@ class UsersController extends Controller
         return redirect()->route('users.show',[$user]);
     }
 
+    /**@detail 获取用户关注的人的列表;
+     * @param User $user
+     * @author mgg]
+     */
+    public  function followings(User $user){
+        $users =$user->followings()->paginate(30);
+        $title = "关注的人";
+        return view('users.show_follow',compact('users','title'));
+    }
+
+    /**
+     * @detail 获取用户的粉丝;
+     * @param User $user
+     * @author mgg
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function followers(User $user){
+        $users = $user->followers()->paginate(30);
+        $title="粉丝";
+        return view('users.show_follow',compact('users','title'));
+
+    }
+
 
 
 

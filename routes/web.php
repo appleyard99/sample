@@ -46,3 +46,14 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 //微博管理路由配置;使用resource方法,用only指定只生成新建和删除的路由;
 Route::resource('statuses','StatusesController',['only'=>['store','destroy']]);
+
+//获取关注的人列表;
+Route::get('users/{user}/followings','UsersController@followings')->name('users.followings');
+//获取粉丝列表
+Route::get('/users/{user}/followers','UsersController@followers')->name('users.followers');
+
+//关注用户
+Route::post('/users/followers/{user}','FollowersController@store')->name('followers.store');
+//取消关注
+Route::delete('users/followers/{user}','FollowersController@destroy')->name('followers.destroy');
+
