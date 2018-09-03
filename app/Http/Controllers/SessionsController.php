@@ -31,6 +31,28 @@ class SessionsController extends Controller
      * 用户登录
      * @author mgg
      */
+    /**
+     * @SWG\Post(
+     *     path="/login",
+     *     summary="登录接口",
+     *     tags={"Session"},
+     *     @SWG\Parameter(
+     *         name="email",
+     *         in="header",
+     *         description="账户名(邮箱)",
+     *         required=true,
+     *         type="string"
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="It's ok"
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error"
+     *     )
+     * )
+     */
     public function store(Request $request){
         $credentials = $this->validate($request,['email'=>'required|email|max:244','password'=>'required']);
         //验证成功时$credentials返回包含所有入参的关联数组,验证失败返回false;

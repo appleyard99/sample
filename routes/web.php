@@ -57,3 +57,6 @@ Route::post('/users/followers/{user}','FollowersController@store')->name('follow
 //取消关注
 Route::delete('users/followers/{user}','FollowersController@destroy')->name('followers.destroy');
 
+//swagger路由
+Route::get('/swagger/doc', 'SwaggerController@doc');
+
