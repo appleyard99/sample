@@ -34,7 +34,7 @@ require __DIR__.'/../vendor/autoload.php';
 | the responses back to the browser and delight our users.
 |
 */
-
+//$app得到Bootstrap\app.php，其中Kernel类会被 绑定到容器container中。
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 /*
