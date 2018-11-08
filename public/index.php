@@ -48,9 +48,12 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 | and wonderful application we have prepared for them.
 |
 */
-
+//随后，实现$Kernel，
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
+//Illuminate\Contracts\Http\Kernel只是一个接口，由其继承者Illuminate\Foundation\Http\Kernel实现。这里创建了，也正是这个类。
+//随后，
+//调用Kernel类的Handle函数，处理传送进来的request
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
